@@ -22,7 +22,7 @@ api = st.text_input("Enter Your API Key here :")
 openai.api_key =api
 model_engine = "text-davinci-002"
 option = st.selectbox(      # choosing 
-    'choose one of the options:',
+    'Choose One Of The Options:',
     ('How To Use The App' , 'summerize', 'Extract keywords', 'title generator', "generate article" ))
 
 
