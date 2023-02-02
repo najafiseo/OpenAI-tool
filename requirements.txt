@@ -1,0 +1,13 @@
+bing_image_downloader==1.1.2
+deep_translator==1.9.2
+docx==0.2.4
+gTTS==2.3.0
+imageio==2.24.0
+moviepy==1.0.3
+mutagen==1.46.0
+openai==0.26.0
+pandas==1.5.2
+Pillow==9.4.0
+python_docx==0.8.11
+streamlit==1.17.0
+urllib3==1.26.13
