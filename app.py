@@ -17,13 +17,14 @@ import shutil
 from docx import Document
 import glob
 
-api = st.text_input("")
-openai.api_key = "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"
+st.title(":crossed_swords: OpenAI Tool")
+api = st.text_input("Enter Your API Key here :")
+openai.api_key =api
 model_engine = "text-davinci-002"
 option = st.selectbox(      # choosing 
     'choose one of the options:',
     ('How To Use The App' , 'summerize', 'Extract keywords', 'title generator', "generate article" ))
-st.title("Enter ur API key")
+
 
 if option == "Extract keywords":
     if api  :
@@ -55,7 +56,7 @@ if option == "Extract keywords":
         )
         st.dataframe(my_large_df)
 if option == "summerize":
-    inpu = st.text_input("put ur text")
+    inpu = st.text_input("Enter Your Text")
     inpu = GoogleTranslator(source="auto" , target= "en").translate(inpu)
     if inpu:
         response = openai.Completion.create(
@@ -77,14 +78,14 @@ if option == "summerize":
 
 
 if option == "generate article":
-    nubmer = st.slider("how many paragragh do you need ? " , 0 ,10 )
-    nubmer_questions = st.slider("how many questions do you need ?" , 0 , 10 )
-    fa_or_en = st.selectbox("choose : " , ("persian" , "english"))
-    AI_or_bing = st.selectbox("Generate image OR Download ready image" , ("download" , "generate"))
+    nubmer = st.slider("How Many Paragragh Do You Need ? " , 0 ,10 )
+    nubmer_questions = st.slider("How Many Questions Do You Need ?" , 0 , 10 )
+    fa_or_en = st.selectbox("Choose The Language You Want : " , ("persian" , "english"))
+    AI_or_bing = st.selectbox("Generate Image Or Download Ready Image : " , ("download" , "generate"))
     if AI_or_bing == "generate":
         pass
     else :
-        img_num = st.slider("how many image for every article do you need ? " , 0 , 99)
+        img_num = st.slider("How Many Image For Every Article Do You Need ? " , 0 , 99)
     uploaded_file = st.file_uploader("Choose a file")
     lisst = []
     if fa_or_en:
@@ -303,12 +304,11 @@ if option == "generate article":
 if option == "title generator":
     start_sequence = "\nAI:"
     restart_sequence = "\nHuman: "
-    topic_input_first = st.text_input("give me your topic")
+    topic_input_first = st.text_input("Give Me A Keyword")
     topic_input = GoogleTranslator(source="auto" , target="en").translate(topic_input_first)
     if topic_input:
-        generate_content = st.selectbox("do you want to generate content for the title" , ("choose one","yes" , "no"))
+        generate_content = st.selectbox("Do You Want To Generate Content For The Title" , ("choose one","yes" , "no"))
         if generate_content == "no" :
-            openai.api_key = "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"
             response = openai.Completion.create(
             model="text-davinci-003",
             prompt="Human:give me a title about " + topic_input,
@@ -325,20 +325,19 @@ if option == "title generator":
             st.success (res_to_en)
             st.warning(res_to_farsi)
         if generate_content == "yes":
-            nubmer = st.slider("how many paragragh do you need ? " , 0 ,10 )
-            nubmer_questions = st.slider("how many questions do you need ?" , 0 , 10 )
+            nubmer = st.slider("How Many Paragragh Do You Need ? " , 0 ,10 )
+            nubmer_questions = st.slider("How Many Questions Do You Need ?" , 0 , 10 )
 
-            AI_or_bing = st.selectbox("Generate image OR Download ready image" , ("download" , "generate"))
+            AI_or_bing = st.selectbox("Generate Image Or Download Ready Image" , ("download" , "generate"))
             if AI_or_bing == "generate":
-                about_image = st.text_input("Tell me an image that you want : ")
+                about_image = st.text_input("Tell Me About An Image That You Want : ")
             else :
-                img_num = st.slider("how many image for every article do you need ? " , 0 , 99)
+                img_num = st.slider("How Many Image For Every Article Do You Need ? " , 0 , 99)
             
-            fa_or_en = st.selectbox("choose : " , ( "choose" , "persian" , "english"))
+            fa_or_en = st.selectbox("Choose The Language You Want : " , ( "choose" , "persian" , "english"))
             if fa_or_en == "choose":
                 st.warning("you need to choose a lang")
             else :
-                openai.api_key = "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"
                 response = openai.Completion.create(
                 model="text-davinci-003",
                 prompt="Human:give me a title about " + topic_input,
