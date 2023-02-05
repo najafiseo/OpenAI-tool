@@ -11,9 +11,9 @@ Download the project/repository and unzip it.
 
 Open a terminal in the project location, for this you can use Ctrl + L in Windows and then type cmd and enter and open the terminal in the project location that you unzipped.
 
-Enter the pip install -r requirements.txt command in the terminal.
+Enter the "pip install -r requirements.txt" command in the terminal.
 
-Then enter the streamlit run app.py command and the program will run for you.
+Then enter the "streamlit run app.py" command and the program will run for you.
 
 If the program does not open automatically for you, open the generated address in your browser from the Local Url field.
 
