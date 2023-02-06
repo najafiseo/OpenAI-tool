@@ -22,7 +22,7 @@ api = st.text_input("Enter Your API Key here :")
 openai.api_key =api
 model_engine = "text-davinci-002"
 option = st.selectbox(      # choosing 
-    'Choose One Of The Options:',
+    'choose one of the options:',
     ('How To Use The App' , 'summerize', 'Extract keywords', 'title generator', "generate article" ))
 
 
@@ -33,7 +33,7 @@ if option == "Extract keywords":
         model="text-davinci-003",
         prompt="Extract keywords from this text:\n\n" + inp,
         temperature=0.5,
-        max_tokens=60,
+        max_tokens=1000,
         top_p=1.0,
         frequency_penalty=0.8,
         presence_penalty=0.0
@@ -49,7 +49,7 @@ if option == "Extract keywords":
         my_large_df = pd.DataFrame(dict)
         csv = convert_df(my_large_df)
         st.download_button(
-            label="Download data as CSV",
+            label="Download data as CSV and Run again",
             data=csv,
             file_name='large_df.csv',
             mime='text/csv',
@@ -109,11 +109,18 @@ if option == "generate article":
             )
             generated_text = completions.choices[0].text
             lines = generated_text.strip().split("\n")
-            headers = [line for line in lines if line != '']
+            headers_list = [line for line in lines if line != '']
+            headers=[]
+            for h in headers_list:
+                if h[0].isdigit():
+                    headers.append(h[3:])
+                else:
+                    headers.append(h)
+            
             headers_fa = GoogleTranslator(source="en" , target="fa").translate_batch(headers)
             li = []
             for i in headers :
-                prompt = "write a paragraph about "+ i[3:]
+                prompt = "write a paragraph about "+ i
                 completions = openai.Completion.create(
                     engine=model_engine,
                     prompt=prompt,
@@ -188,10 +195,10 @@ if option == "generate article":
 
             document = Document()       #make word
             for key, value in dic.items():
-                document.add_heading(key[3:] , level =2)
+                document.add_heading(key , level =2)
                 document.add_paragraph(value)
             for key, value in question_and_answer_dic.items():
-                document.add_heading(key[3:] , level =2)
+                document.add_heading(key , level =2)
                 document.add_paragraph(value)
 
             document_name = title_input + ".docx"
@@ -297,9 +304,10 @@ if option == "generate article":
                     shutil.move(src , des)
                     shutil.move(src_speech , des)
                     shutil.move(src_vid , des)   
-                    shutil.move(src_img , des)           
-
-            st.success ("Boooom your Article , Video & Audio is reeeeeaaaadyyyy :))))) ")
+                    shutil.move(src_img , des)        
+                       
+            stsuccess = "Boooom your Article , Video & Audio About : " + title_input + " is reeeeeaaaadyyyy :))))) "
+            st.success (stsuccess)
 
 if option == "title generator":
     start_sequence = "\nAI:"
@@ -366,7 +374,13 @@ if option == "title generator":
                 )
                 generated_text = completions.choices[0].text
                 lines = generated_text.strip().split("\n")
-                headers = [line for line in lines if line != '']
+                headers_list = [line for line in lines if line != '']
+                headers=[]
+                for h in headers_list:
+                    if h[0].isdigit():
+                        headers.append(h[3:])
+                    else:
+                        headers.append(h)                
                 headers_fa = GoogleTranslator(source="en" , target="fa").translate_batch(headers)
                 li = []
                 for i in headers :
@@ -435,7 +449,10 @@ if option == "title generator":
                     
                     
                 document = Document()       #make word
-                document.add_heading(title_input , level = 1)
+                if fa_or_en=="persian":
+                    document.add_heading(res_to_farsi , level = 1)
+                else:
+                    document.add_heading(title_input , level = 1)
                 for key, value in dic.items():
                     document.add_heading(key[3:] , level =2)
                     document.add_paragraph(value)
@@ -529,3 +546,17 @@ if option == "title generator":
                     shutil.move(src_vid , des)                
 
                 st.success ("Boooom your Article , Video & Audio is reeeeeaaaadyyyy :))))) ")
+
+if option == "How To Use The App":
+    st.subheader("Follow Me On Social Medias")
+    
+    col2 , col1 , col3  = st.columns(3)
+    with col1:
+        st.subheader(":point_right:[youtub](https://www.youtube.com/@najafiseo) ")
+    with col2:
+        st.subheader(":point_right:[instagram](https://www.instagram.com/najafi.seo/)")
+    with col3:
+        st.subheader(":point_right:[twiter](https://twitter.com/M_najafi94)")
+
+    st.header("How To Use This App")
+    st.video("https://www.youtube.com/watch?v=gKoriHae71w")
