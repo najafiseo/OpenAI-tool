@@ -558,5 +558,5 @@ if option == "How To Use The App":
     with col3:
         st.subheader(":point_right:[twiter](https://twitter.com/M_najafi94)")
 
-    st.header("How To Use This App")
-    st.video("https://www.youtube.com/watch?v=gKoriHae71w")
+    st.subheader("How To Use This App")
+    st.subheader(":point_right:[github](https://github.com/najafiseo/OpenAI-tool)")
