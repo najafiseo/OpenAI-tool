@@ -17,7 +17,7 @@ import shutil
 from docx import Document
 import glob
 
-st.title(":crossed_swords: OpenAI Tool")
+st.title(":crossed_swords: OpenAI SEO Tool")
 api = st.text_input("Enter Your API Key here :")
 openai.api_key =api
 model_engine = "text-davinci-002"
@@ -454,10 +454,10 @@ if option == "title generator":
                 else:
                     document.add_heading(title_input , level = 1)
                 for key, value in dic.items():
-                    document.add_heading(key[3:] , level =2)
+                    document.add_heading(key , level =2)
                     document.add_paragraph(value)
                 for key, value in question_and_answer_dic.items():
-                    document.add_heading(key[3:] , level =2)
+                    document.add_heading(key , level =2)
                     document.add_paragraph(value)
 
                 document_name = topic_input_first + ".docx"
