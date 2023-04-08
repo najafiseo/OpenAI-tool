@@ -11,3 +11,4 @@ Pillow==9.4.0
 python_docx==0.8.11
 streamlit==1.17.0
 urllib3==1.26.13
+openpyxl
